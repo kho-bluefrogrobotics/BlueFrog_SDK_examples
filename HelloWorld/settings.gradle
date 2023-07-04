@@ -10,5 +10,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HelloWorld"
+rootProject.name = "SDKv2Vision"
 include ':app'

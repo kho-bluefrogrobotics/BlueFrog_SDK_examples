@@ -1,4 +1,4 @@
-package com.bfr.helloworld;
+package com.bfr.sdkv2vision;
 
 import com.bfr.buddysdk.BuddyApplication;
 

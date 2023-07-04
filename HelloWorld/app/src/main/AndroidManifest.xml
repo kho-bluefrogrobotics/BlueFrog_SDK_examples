@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bfr.helloworld">
+    package="com.bfr.sdkv2vision">
 
     <uses-permission android:name="com.bfr.buddy.resource.SPEECH" />
     <uses-permission android:name="com.bfr.buddy.resource.LISTEN" />
@@ -15,13 +15,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="SDKv2HelloWorld"
-        android:name="com.bfr.helloworld.MainApplication"
+        android:label="SDKv2Vision"
+        android:name="com.bfr.sdkv2vision.MainApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BuddyTheme">
         <activity
-            android:name="com.bfr.helloworld.MainActivity"
+            android:name="com.bfr.sdkv2vision.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

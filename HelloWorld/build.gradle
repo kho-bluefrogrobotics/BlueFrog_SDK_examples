@@ -24,8 +24,8 @@ allprojects {
         // BFR SDK url
         maven { url "https://bluefrogrobotics.jfrog.io/artifactory/bluefrogrobotics-libs-release-local/"
             credentials{
-                username "${maven_user}"
-                password "${maven_password}"
+                username "kho@bluefrogrobotics.com"
+                password "123321@Jfrog"
             }
         }
     }
