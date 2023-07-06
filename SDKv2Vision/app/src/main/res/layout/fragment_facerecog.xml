@@ -21,38 +21,38 @@
             tools:layout_editor_absoluteY="0dp" />
 
         <Button
-            android:id="@+id/buttonStopCam3"
+            android:id="@+id/buttonLoad"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="252dp"
             android:text="Load Faces"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonStart"
-            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+            app:layout_constraintStart_toStartOf="@+id/buttonSave"
+            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
 
         <EditText
-            android:id="@+id/editTextmotionThres"
+            android:id="@+id/editTextName"
             android:layout_width="117dp"
             android:layout_height="57dp"
             android:layout_marginStart="36dp"
             android:ems="10"
             android:text="Name"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/buttonStart"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSave"
             tools:text="Name" />
 
         <TextView
             android:id="@+id/resultText"
             android:layout_width="208dp"
             android:layout_height="109dp"
-            android:layout_marginStart="176dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="60dp"
             android:background="#FFFFFF"
-            android:text="Salut"
+            android:text=""
             android:textColor="#000000"
-            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/previewCam"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <ImageView
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
-            android:id="@+id/buttonStart"
+            android:id="@+id/buttonSave"
             android:layout_width="112dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -80,63 +80,63 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
-            android:id="@+id/buttonStop"
+            android:id="@+id/buttonRecog"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="128dp"
             android:text="Recog Face"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonStart"
-            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+            app:layout_constraintStart_toStartOf="@+id/buttonSave"
+            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
 
         <Button
-            android:id="@+id/buttonFaceDetect"
+            android:id="@+id/buttonGetTopk"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:text="Get top-K"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/buttonStopCam3"
-            app:layout_constraintTop_toTopOf="@+id/buttonStopCam3" />
+            app:layout_constraintStart_toEndOf="@+id/buttonLoad"
+            app:layout_constraintTop_toTopOf="@+id/buttonLoad" />
 
         <Button
-            android:id="@+id/buttonStopCam4"
+            android:id="@+id/buttonGetall"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:text="Get all"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonStopCam3"
-            app:layout_constraintTop_toBottomOf="@+id/buttonStopCam3" />
+            app:layout_constraintStart_toStartOf="@+id/buttonLoad"
+            app:layout_constraintTop_toBottomOf="@+id/buttonLoad" />
 
         <Button
-            android:id="@+id/buttonStopCam5"
+            android:id="@+id/buttonDelete"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="16dp"
             android:text="Delete"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/buttonStopCam3"
-            app:layout_constraintTop_toBottomOf="@+id/buttonFaceDetect" />
+            app:layout_constraintStart_toEndOf="@+id/buttonLoad"
+            app:layout_constraintTop_toBottomOf="@+id/buttonGetTopk" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/editTextIndex"
             android:layout_width="80dp"
             android:layout_height="46dp"
             android:layout_marginStart="112dp"
             android:ems="10"
             android:inputType="number"
             android:text="0"
-            app:layout_constraintStart_toStartOf="@+id/buttonStopCam5"
-            app:layout_constraintTop_toTopOf="@+id/buttonStopCam5" />
+            app:layout_constraintStart_toStartOf="@+id/buttonDelete"
+            app:layout_constraintTop_toTopOf="@+id/buttonDelete" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         // BFR SDK url
-        maven { url "https://bluefrogrobotics.jfrog.io/artifactory/bluefrogrobotics-libs-release-local/"
+        maven { url "https://bluefrogrobotics.jfrog.io/artifactory/bluefrogrobotics-libs-snapshot-local/"
             credentials{
                 username "kho@bluefrogrobotics.com"
                 password "123321@Jfrog"

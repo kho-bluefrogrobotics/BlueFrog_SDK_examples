@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,7 @@ public class camera extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
 
-        Button myButton = (Button) view.findViewById(R.id.buttonStart);
+        Button myButton = (Button) view.findViewById(R.id.buttonSave);
 
         mPreviewCamera = view.findViewById(R.id.previewCam);
         displayBox = view.findViewById(R.id.displayChckbox);

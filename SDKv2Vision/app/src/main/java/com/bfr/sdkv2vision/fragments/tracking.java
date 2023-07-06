@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,8 +44,8 @@ public class tracking extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_tracking, container, false);
 
         //Link to UI
-        mStartBtn = view.findViewById(R.id.buttonStart);
-        mStopBtn = view.findViewById(R.id.buttonStop);
+        mStartBtn = view.findViewById(R.id.buttonSave);
+        mStopBtn = view.findViewById(R.id.buttonRecog);
         mGetBtn = view.findViewById(R.id.buttonGet);
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);

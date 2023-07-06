@@ -37,9 +37,9 @@ public class detection extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_detection, container, false);
 
         //Link to UI
-        mFaceDetectBtn = view.findViewById(R.id.buttonFaceDetect);
-        mPersonDetectBtn = view.findViewById(R.id.buttonStop);
-        mAprilTagBtn = view.findViewById(R.id.buttonStart);
+        mFaceDetectBtn = view.findViewById(R.id.buttonGetTopk);
+        mPersonDetectBtn = view.findViewById(R.id.buttonRecog);
+        mAprilTagBtn = view.findViewById(R.id.buttonSave);
         mColorBtn = view.findViewById(R.id.buttonColor);
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);

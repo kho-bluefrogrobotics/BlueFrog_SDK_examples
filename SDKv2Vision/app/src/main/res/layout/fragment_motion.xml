@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
-            android:id="@+id/buttonStart"
+            android:id="@+id/buttonSave"
             android:layout_width="112dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -56,52 +56,52 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
-            android:id="@+id/buttonStop"
+            android:id="@+id/buttonRecog"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="128dp"
             android:text="Stop Detect"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonStart"
-            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+            app:layout_constraintStart_toStartOf="@+id/buttonSave"
+            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
 
         <Button
-            android:id="@+id/buttonFaceDetect"
+            android:id="@+id/buttonGetTopk"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="252dp"
             android:text="Get Motion"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonStart"
-            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+            app:layout_constraintStart_toStartOf="@+id/buttonSave"
+            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
 
         <Button
             android:id="@+id/buttonGet"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="252dp"
             android:text="Get Motion"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonStart"
-            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+            app:layout_constraintStart_toStartOf="@+id/buttonSave"
+            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
 
         <Button
             android:id="@+id/buttonSet"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonStart"
-            android:layout_alignStart="@+id/buttonStart"
+            android:layout_below="@+id/buttonSave"
+            android:layout_alignStart="@+id/buttonSave"
             android:layout_marginStart="380dp"
             android:text="Set Thres"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonStart"
-            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+            app:layout_constraintStart_toStartOf="@+id/buttonSave"
+            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
 
         <EditText
             android:id="@+id/textThres"
