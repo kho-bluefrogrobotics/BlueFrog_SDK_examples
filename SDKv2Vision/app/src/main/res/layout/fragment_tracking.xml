@@ -56,7 +56,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
-            android:id="@+id/buttonStop"
+            android:id="@+id/buttonGet"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttonStart"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toTopOf="@+id/buttonStart" />
 
         <Button
-            android:id="@+id/buttonFaceDetect"
+            android:id="@+id/buttonStop"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttonStart"

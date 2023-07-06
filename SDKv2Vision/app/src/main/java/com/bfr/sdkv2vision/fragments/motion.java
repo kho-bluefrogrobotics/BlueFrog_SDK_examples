@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bfr.buddy.vision.shared.MotionDetection;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -32,7 +33,6 @@ public class motion extends Fragment {
         @Override
         public void run() {
             try {
-                Log.w("coucou", "coucou");
                 //display frame grand angle
                 mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
                 mHandler.postDelayed(this, 30);
@@ -82,10 +82,12 @@ public class motion extends Fragment {
         mGetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MotionDetection motionResult = BuddySDK.Vision.getMotionDetection();
+
                 resultText.setText("Mvt= " +   BuddySDK.Vision.motionDetect() + " "+
-                        BuddySDK.Vision.getMotionDetection().getAmplitude()
-                        + " " + BuddySDK.Vision.getMotionDetection().getX()
-                        + " " + BuddySDK.Vision.getMotionDetection().getY()  + " |  Mvt with Thres = " +   BuddySDK.Vision.motionDetectWithThres(20.0f));
+                        motionResult.getAmplitude()
+                        + " " + motionResult.getX()
+                        + " " + motionResult.getY());
             }
         });
 
