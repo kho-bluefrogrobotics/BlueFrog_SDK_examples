@@ -6,7 +6,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.bfr.sdkv2_vision"
+        applicationId "com.bfr.helloworld"
         minSdk 28
         targetSdk 30
         versionCode 1

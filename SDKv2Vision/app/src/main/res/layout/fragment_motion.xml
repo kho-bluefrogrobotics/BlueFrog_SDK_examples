@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.motion">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Movement"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/resultText"
+            android:layout_width="208dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="176dp"
+            android:layout_marginTop="16dp"
+            android:background="#FFFFFF"
+            android:text="Salut"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <ImageView
+            android:id="@+id/previewCam"
+            android:layout_width="365dp"
+            android:layout_height="230dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="270dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/buttonAprilTag"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="240dp"
+            android:text="Start Detect"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/buttonPersonDetect"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonAprilTag"
+            android:layout_alignStart="@+id/buttonAprilTag"
+            android:layout_marginStart="128dp"
+            android:text="Stop Detect"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/buttonAprilTag"
+            app:layout_constraintTop_toTopOf="@+id/buttonAprilTag" />
+
+        <Button
+            android:id="@+id/buttonFaceDetect"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonAprilTag"
+            android:layout_alignStart="@+id/buttonAprilTag"
+            android:layout_marginStart="252dp"
+            android:text="Get Motion"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/buttonAprilTag"
+            app:layout_constraintTop_toTopOf="@+id/buttonAprilTag" />
+
+        <Button
+            android:id="@+id/buttonStopCam6"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonAprilTag"
+            android:layout_alignStart="@+id/buttonAprilTag"
+            android:layout_marginStart="252dp"
+            android:text="Get Motion"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/buttonAprilTag"
+            app:layout_constraintTop_toTopOf="@+id/buttonAprilTag" />
+
+        <Button
+            android:id="@+id/buttonStopCam7"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonAprilTag"
+            android:layout_alignStart="@+id/buttonAprilTag"
+            android:layout_marginStart="380dp"
+            android:text="Set Thres"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/buttonAprilTag"
+            app:layout_constraintTop_toTopOf="@+id/buttonAprilTag" />
+
+        <EditText
+            android:id="@+id/editTextmotionThres2"
+            android:layout_width="117dp"
+            android:layout_height="57dp"
+            android:ems="10"
+            android:text="10.0"
+            app:layout_constraintStart_toStartOf="@+id/buttonStopCam7"
+            app:layout_constraintTop_toBottomOf="@+id/buttonStopCam7"
+            tools:text="Thres" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>
