@@ -27,7 +27,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Movement">
+            android:text="Motion">
         </com.google.android.material.tabs.TabItem>
 
         <com.google.android.material.tabs.TabItem

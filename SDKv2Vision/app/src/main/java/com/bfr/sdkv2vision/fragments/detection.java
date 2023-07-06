@@ -4,14 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bfr.buddy.vision.shared.ArucoMarkers;
 import com.bfr.buddy.vision.shared.Detections;
@@ -40,8 +38,8 @@ public class detection extends Fragment {
 
         //Link to UI
         mFaceDetectBtn = view.findViewById(R.id.buttonFaceDetect);
-        mPersonDetectBtn = view.findViewById(R.id.buttonPersonDetect);
-        mAprilTagBtn = view.findViewById(R.id.buttonAprilTag);
+        mPersonDetectBtn = view.findViewById(R.id.buttonStop);
+        mAprilTagBtn = view.findViewById(R.id.buttonStart);
         mColorBtn = view.findViewById(R.id.buttonColor);
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);

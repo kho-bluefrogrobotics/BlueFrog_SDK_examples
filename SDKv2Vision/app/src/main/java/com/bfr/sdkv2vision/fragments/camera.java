@@ -23,7 +23,7 @@ public class camera extends Fragment {
     private ImageView mPreviewCamera;
     private Handler mHandler = new Handler();
     CheckBox displayBox;
-    //Element to display frame from Camera grand angle every 100ms
+    //Element to display frame from Camera
     private  Runnable mRunnablePreviewFrame = new Runnable() {
         @Override
         public void run() {
@@ -49,7 +49,7 @@ public class camera extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
 
-        Button myButton = (Button) view.findViewById(R.id.buttonAprilTag);
+        Button myButton = (Button) view.findViewById(R.id.buttonStart);
 
         mPreviewCamera = view.findViewById(R.id.previewCam);
         displayBox = view.findViewById(R.id.displayChckbox);
