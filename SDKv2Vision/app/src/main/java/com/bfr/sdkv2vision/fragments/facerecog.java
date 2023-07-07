@@ -72,6 +72,13 @@ public class facerecog extends Fragment {
                             }
                         });
                 // Display
+                synchronized(this){
+                    try {
+                        this.wait(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
             }
         });
@@ -86,10 +93,17 @@ public class facerecog extends Fragment {
                 int idxOfFaceToSave = 0;
 
                 // Actual recognition
-                String recognizedName =  BuddySDK.Vision.recognizeFace(listOfFaces, idxOfFaceToSave).getNeme();
+                String recognizedName =  BuddySDK.Vision.recognizeFace(listOfFaces, idxOfFaceToSave).getName();
 
                 // Display
                 resultText.setText("Face recognized:\n"+recognizedName);
+                synchronized(this){
+                    try {
+                        this.wait(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
             }
         });

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bfr.buddy.vision.shared.Tracking;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -74,10 +75,12 @@ public class tracking extends Fragment {
         mGetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resultText.setText("Target= " +   BuddySDK.Vision.getTracking().isTrackingSuccessfull() + " "+
-                        BuddySDK.Vision.getMotionDetection().getAmplitude()
-                        + " " + BuddySDK.Vision.getMotionDetection().getX()
-                        + " " + BuddySDK.Vision.getMotionDetection().getY()  + " |  Mvt with Thres = " +   BuddySDK.Vision.motionDetectWithThres(20.0f));
+
+                Tracking targetResult = BuddySDK.Vision.getTracking();
+
+                resultText.setText("Target= " +   targetResult.isTrackingSuccessfull() + " "
+                        + " " + targetResult.getLeftPos()
+                        + " " + targetResult.getTopPos()  );
             }
         });
         return view;
