@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bfr.buddy.vision.shared.Detections;
 import com.bfr.buddy.vision.shared.FaceRecognition;
 import com.bfr.buddy.vision.shared.IVisionRsp;
 import com.bfr.buddysdk.BuddySDK;
@@ -49,8 +50,15 @@ public class facerecog extends Fragment {
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuddySDK.Vision.saveFace(BuddySDK.Vision.detectFace(),
-                        0,
+
+                // First, detect all the faces in front of the camera
+                Detections listOfFaces = BuddySDK.Vision.detectFace();
+                // index of the face to save for further recognition
+                int idxOfFaceToSave = 0;
+
+                // linking a name to the face for further recognition
+                BuddySDK.Vision.saveFace(listOfFaces,
+                        idxOfFaceToSave,
                         nameText.getText().toString(),
                         new IVisionRsp.Stub() {
                             @Override
@@ -63,7 +71,7 @@ public class facerecog extends Fragment {
                                 Log.e(TAG, "Error saving face: " + s);
                             }
                         });
-
+                // Display
                 mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
             }
         });
@@ -71,14 +79,26 @@ public class facerecog extends Fragment {
         mRecogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultText.setText("Face recognized:\n"+
-                BuddySDK.Vision.recognizeFace(BuddySDK.Vision.detectFace(), 0));
+
+                // First, detect all the faces in front of the camera
+                Detections listOfFaces = BuddySDK.Vision.detectFace();
+                // index of the face to recognize
+                int idxOfFaceToSave = 0;
+
+                // Actual recognition
+                String recognizedName =  BuddySDK.Vision.recognizeFace(listOfFaces, idxOfFaceToSave).getNeme();
+
+                // Display
+                resultText.setText("Face recognized:\n"+recognizedName);
+                mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
             }
         });
 
         mLoadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // load saved faces from default file stored in the robot
                 BuddySDK.Vision.loadFaces(new IVisionRsp.Stub() {
                     @Override
                     public void onSuccess(String s) throws RemoteException {
@@ -97,12 +117,16 @@ public class facerecog extends Fragment {
             @Override
             public void onClick(View view) {
 
+                // Once the previously saved faces have been loaded with BuddySDK.Vision.loadFaces()
+                // get the list of the previoulsy registered names
                 String[] listOfNames = BuddySDK.Vision.getSavedNames();
 
                 String toDisplay = "";
                 for (int i=0; i<listOfNames.length; i++){
                     toDisplay = toDisplay + listOfNames[i] + "\n";
                 }
+
+                //display
                 resultText.setText(toDisplay);
             }
         });
@@ -110,12 +134,16 @@ public class facerecog extends Fragment {
         mGetTopkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // After a recognition with BuddySDK.Vision.recognizeFace()
+                // get the list of the top k-candidates, from the most well recognized to the less
                 FaceRecognition[] candidates = BuddySDK.Vision.getTopKResults(3);
 
                 String toDisplay = "";
                 for (int i=0; i<candidates.length; i++){
                     toDisplay = toDisplay + candidates[i].getName() + "\n";
                 }
+                //Display
                 resultText.setText(toDisplay);
             }
         });
@@ -123,6 +151,8 @@ public class facerecog extends Fragment {
         mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // remove a known face from the list of previously registered names at the specified index
                 BuddySDK.Vision.removeFace(Integer.parseInt(indexText.getText().toString()),
                         new IVisionRsp.Stub() {
                             @Override
