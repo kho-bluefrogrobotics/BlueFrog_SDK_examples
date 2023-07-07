@@ -24,13 +24,13 @@
             android:id="@+id/buttonLoad"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonSave"
-            android:layout_alignStart="@+id/buttonSave"
+            android:layout_below="@+id/buttonStart"
+            android:layout_alignStart="@+id/buttonStart"
             android:layout_marginStart="252dp"
             android:text="Load Faces"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonSave"
-            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
+            app:layout_constraintStart_toStartOf="@+id/buttonStart"
+            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
 
         <EditText
             android:id="@+id/editTextName"
@@ -40,7 +40,7 @@
             android:ems="10"
             android:text="Name"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/buttonSave"
+            app:layout_constraintTop_toBottomOf="@+id/buttonStart"
             tools:text="Name" />
 
         <TextView
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
-            android:id="@+id/buttonSave"
+            android:id="@+id/buttonStart"
             android:layout_width="112dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -80,23 +80,23 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
-            android:id="@+id/buttonRecog"
+            android:id="@+id/buttonStop"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonSave"
-            android:layout_alignStart="@+id/buttonSave"
+            android:layout_below="@+id/buttonStart"
+            android:layout_alignStart="@+id/buttonStart"
             android:layout_marginStart="128dp"
             android:text="Recog Face"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/buttonSave"
-            app:layout_constraintTop_toTopOf="@+id/buttonSave" />
+            app:layout_constraintStart_toStartOf="@+id/buttonStart"
+            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
 
         <Button
             android:id="@+id/buttonGetTopk"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonSave"
-            android:layout_alignStart="@+id/buttonSave"
+            android:layout_below="@+id/buttonStart"
+            android:layout_alignStart="@+id/buttonStart"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:text="Get top-K"
@@ -108,8 +108,8 @@
             android:id="@+id/buttonGetall"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonSave"
-            android:layout_alignStart="@+id/buttonSave"
+            android:layout_below="@+id/buttonStart"
+            android:layout_alignStart="@+id/buttonStart"
             android:text="Get all"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/buttonLoad"
@@ -119,8 +119,8 @@
             android:id="@+id/buttonDelete"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonSave"
-            android:layout_alignStart="@+id/buttonSave"
+            android:layout_below="@+id/buttonStart"
+            android:layout_alignStart="@+id/buttonStart"
             android:layout_marginStart="16dp"
             android:text="Delete"
             android:textSize="12sp"

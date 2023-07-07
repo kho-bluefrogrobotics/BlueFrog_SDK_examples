@@ -19,6 +19,7 @@ import com.bfr.sdkv2vision.R;
 
 public class camera extends Fragment {
 
+    private Button mStartBtn, mStopBtn, mGetBtn;
     private ImageView mPreviewCamera;
     private Handler mHandler = new Handler();
     CheckBox displayBox;
@@ -47,8 +48,10 @@ public class camera extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
 
-        Button myButton = (Button) view.findViewById(R.id.buttonSave);
-
+        //Link to UI
+        mStartBtn = view.findViewById(R.id.buttonStart);
+        mStopBtn = view.findViewById(R.id.buttonStop);
+        mGetBtn = view.findViewById(R.id.buttonGetStatus);
         mPreviewCamera = view.findViewById(R.id.previewCam);
         displayBox = view.findViewById(R.id.displayChckbox);
         displayBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

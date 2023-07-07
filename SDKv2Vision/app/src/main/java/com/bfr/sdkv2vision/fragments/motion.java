@@ -48,8 +48,8 @@ public class motion extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_motion, container, false);
 
         //Link to UI
-        mStartBtn = view.findViewById(R.id.buttonSave);
-        mStopBtn = view.findViewById(R.id.buttonRecog);
+        mStartBtn = view.findViewById(R.id.buttonStart);
+        mStopBtn = view.findViewById(R.id.buttonStop);
         mGetBtn = view.findViewById(R.id.buttonGet);
         mSetThresBtn = view.findViewById(R.id.buttonSet);
         thresText = view.findViewById(R.id.textThres);

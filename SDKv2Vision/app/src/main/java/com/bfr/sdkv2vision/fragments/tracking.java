@@ -44,8 +44,8 @@ public class tracking extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_tracking, container, false);
 
         //Link to UI
-        mStartBtn = view.findViewById(R.id.buttonSave);
-        mStopBtn = view.findViewById(R.id.buttonRecog);
+        mStartBtn = view.findViewById(R.id.buttonStart);
+        mStopBtn = view.findViewById(R.id.buttonStop);
         mGetBtn = view.findViewById(R.id.buttonGet);
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);

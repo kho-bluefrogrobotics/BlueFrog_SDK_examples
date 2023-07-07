@@ -38,8 +38,8 @@ public class detection extends Fragment {
 
         //Link to UI
         mFaceDetectBtn = view.findViewById(R.id.buttonGetTopk);
-        mPersonDetectBtn = view.findViewById(R.id.buttonRecog);
-        mAprilTagBtn = view.findViewById(R.id.buttonSave);
+        mPersonDetectBtn = view.findViewById(R.id.buttonStop);
+        mAprilTagBtn = view.findViewById(R.id.buttonStart);
         mColorBtn = view.findViewById(R.id.buttonColor);
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);

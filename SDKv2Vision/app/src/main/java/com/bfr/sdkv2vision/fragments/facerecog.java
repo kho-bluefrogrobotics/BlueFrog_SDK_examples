@@ -34,8 +34,8 @@ public class facerecog extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_facerecog, container, false);
 
         //Link to UI
-        mSaveBtn = view.findViewById(R.id.buttonSave);
-        mRecogBtn = view.findViewById(R.id.buttonRecog);
+        mSaveBtn = view.findViewById(R.id.buttonStart);
+        mRecogBtn = view.findViewById(R.id.buttonStop);
         mLoadBtn = view.findViewById(R.id.buttonLoad);
         mGetAllBtn = view.findViewById(R.id.buttonGetall);
         mGetTopkBtn = view.findViewById(R.id.buttonGetTopk);
