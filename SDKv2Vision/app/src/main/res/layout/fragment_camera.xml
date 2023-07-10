@@ -18,6 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Camera" />
+        <TextView
+            android:id="@+id/resultText"
+            android:layout_width="208dp"
+            android:layout_height="109dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="60dp"
+            android:background="#FFFFFF"
+            android:text=""
+            android:textColor="#000000"
+            app:layout_constraintEnd_toStartOf="@+id/previewCam"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <ImageView
             android:id="@+id/previewCam"
@@ -29,6 +40,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
+
 
         <Button
             android:id="@+id/buttonStart"

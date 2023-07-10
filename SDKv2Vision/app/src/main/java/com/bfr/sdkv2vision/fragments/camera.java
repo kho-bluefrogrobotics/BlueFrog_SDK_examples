@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.os.RemoteException;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bfr.buddy.vision.shared.CameraStatus;
+import com.bfr.buddy.vision.shared.IVisionRsp;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -20,9 +25,11 @@ import com.bfr.sdkv2vision.R;
 public class camera extends Fragment {
 
     private Button mStartBtn, mStopBtn, mGetBtn;
+    private TextView resultText;
     private ImageView mPreviewCamera;
     private Handler mHandler = new Handler();
-    CheckBox displayBox;
+    private CheckBox displayBox;
+
     //Element to display frame from Camera
     private  Runnable mRunnablePreviewFrame = new Runnable() {
         @Override
@@ -53,6 +60,7 @@ public class camera extends Fragment {
         mStopBtn = view.findViewById(R.id.buttonStop);
         mGetBtn = view.findViewById(R.id.buttonGetStatus);
         mPreviewCamera = view.findViewById(R.id.previewCam);
+        resultText = view.findViewById(R.id.resultText);
         displayBox = view.findViewById(R.id.displayChckbox);
         displayBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -63,6 +71,56 @@ public class camera extends Fragment {
                     mHandler.removeCallbacksAndMessages(null);
             }
         });
+
+        /*** Camera management***/
+        mStartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BuddySDK.Vision.startCamera(new IVisionRsp.Stub() {
+                    @Override
+                    public void onSuccess(String s) throws RemoteException {
+                        Log.i("Camera", "camera started successfully");
+                    }
+
+                    @Override
+                    public void onFailed(String s) throws RemoteException {
+                        Log.e("Camera", "camera started on error : "+ s);
+                    }
+                });
+            } // end onclick
+        });
+
+        mStopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BuddySDK.Vision.stopCamera(new IVisionRsp.Stub() {
+                    @Override
+                    public void onSuccess(String s) throws RemoteException {
+                        Log.i("Camera", "camera stopped successfully");
+                    }
+
+                    @Override
+                    public void onFailed(String s) throws RemoteException {
+                        Log.e("Camera", "camera stopped on error : "+ s);
+                    }
+                });
+            } // end onclick
+        });
+
+        mGetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CameraStatus cStatus = BuddySDK.Vision.getStatus(0);
+
+                resultText.clearComposingText();
+                resultText.setText("Camera status:\n" +
+                        "started: " + cStatus.isStarted() + "\n" +
+                        "tracking: " + cStatus.isTracking() + "\n" +
+                        "motion detect: " + cStatus.isDetectingMotion());
+            } // end onclick
+        });
+
 
         return view;
     }
