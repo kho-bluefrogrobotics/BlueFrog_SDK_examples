@@ -66,7 +66,6 @@ public class detection extends Fragment {
                         mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
                     });
 
-
                 } // end if myArucos size >0
             }
         });

@@ -37,8 +37,7 @@ public class camera extends Fragment {
             try {
                 //display frame grand angle
                 mPreviewCamera.setImageBitmap(BuddySDK.Vision.getGrandAngleFrame());
-                mHandler.postDelayed(this, 30);
-
+                mHandler.postDelayed(this, 40);
 
             } catch (Exception e) {
                 e.printStackTrace();

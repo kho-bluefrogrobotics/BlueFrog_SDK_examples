@@ -16,12 +16,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="SDKv2Vision"
-        android:name="com.bfr.sdkv2vision.MainApplication"
+        android:name="MainApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BuddyTheme">
         <activity
-            android:name="com.bfr.sdkv2vision.MainActivity"
+            android:name="MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
