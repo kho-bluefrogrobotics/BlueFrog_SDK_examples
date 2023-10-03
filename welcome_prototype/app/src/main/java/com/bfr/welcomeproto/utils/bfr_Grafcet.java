@@ -1,4 +1,4 @@
-package com.bfr.grafcetexample.utils;
+package com.bfr.welcomeproto.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,6 +30,8 @@ public class bfr_Grafcet
     // state
     public boolean started = false;
     public boolean changedStep = false;
+
+    public int step_num=0;
 
     // Runnable containing the grafcet sequence
     public Runnable grafcet_runnable;

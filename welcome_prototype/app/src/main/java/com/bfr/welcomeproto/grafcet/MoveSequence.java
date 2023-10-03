@@ -1,11 +1,13 @@
-package com.bfr.grafcetexample.grafcet;
+package com.bfr.welcomeproto.grafcet;
 
 import android.os.RemoteException;
 import android.util.Log;
 
 import com.bfr.buddy.usb.shared.IUsbCommadRsp;
 import com.bfr.buddysdk.BuddySDK;
-import com.bfr.grafcetexample.utils.bfr_Grafcet;
+import com.bfr.buddysdk.services.companion.Task;
+import com.bfr.buddysdk.services.companion.TaskCallback;
+import com.bfr.welcomeproto.utils.bfr_Grafcet;
 
 public class MoveSequence extends bfr_Grafcet {
 
@@ -29,6 +31,7 @@ public class MoveSequence extends bfr_Grafcet {
 
     }
 
+    Task biTask=null;
 
     /** Motor Response */
     private IUsbCommadRsp MotorResponse = new IUsbCommadRsp.Stub() {
@@ -110,11 +113,41 @@ public class MoveSequence extends bfr_Grafcet {
                         //if wheel is not disable
                         if (!BuddySDK.Actuators.getRightWheelStatus().toUpperCase().contains("DISABLE")) {
                             // next step
-                            step_num = 4;
+                            step_num = 40;
                         }
                         break;
 
 
+
+
+                    case 40:
+                        biTask = BuddySDK.Companion.createBICategoryTask("idle");
+                        biTask.start(new TaskCallback() {
+                            @Override
+                            public void onStarted() {
+
+                            }
+
+                            @Override
+                            public void onSuccess(String s) {
+
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+
+                            @Override
+                            public void onError(String s) {
+
+                            }
+                        });
+                        step_num = 4498;
+                        break;
+
+                    case 4498:
+                        break;
                     case 4: // Rotate to the left
                         MvtAck = "";
                         BuddySDK.USB.rotateBuddy(moveSpeed, 90, MotorResponse);

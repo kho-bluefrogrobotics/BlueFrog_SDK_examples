@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bfr.grafcetexample">
+    package="com.bfr.welcomeproto">
 
     <uses-permission android:name="com.bfr.buddy.resource.SPEECH" />
     <uses-permission android:name="com.bfr.buddy.resource.LISTEN" />
@@ -10,18 +10,19 @@
     <uses-permission android:name="com.bfr.buddy.resource.SENSOR_MODULE" />
     <uses-permission android:name="com.bfr.buddy.resource.FACE" />
     <uses-permission android:name="com.bfr.buddy.resource.GUI" />
+    <uses-permission android:name="com.bfr.buddy.resource.VISION" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Welcomeproto"
-        android:name="com.bfr.grafcetexample.AppActivity"
+        android:name="com.bfr.welcomeproto.AppActivity"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/BuddyTheme"
         android:supportsRtl="true">
 
         <activity
-            android:name="com.bfr.grafcetexample.MainActivity"
+            android:name="com.bfr.welcomeproto.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,11 +1,11 @@
-package com.bfr.grafcetexample.grafcet;
+package com.bfr.welcomeproto.grafcet;
 
 import android.os.RemoteException;
 import android.util.Log;
 
 import com.bfr.buddy.usb.shared.IUsbCommadRsp;
 import com.bfr.buddysdk.BuddySDK;
-import com.bfr.grafcetexample.utils.bfr_Grafcet;
+import com.bfr.welcomeproto.utils.bfr_Grafcet;
 
 public class YesSequence extends bfr_Grafcet {
 

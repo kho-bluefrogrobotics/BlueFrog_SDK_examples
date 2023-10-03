@@ -1,4 +1,4 @@
-package com.bfr.grafcetexample;
+package com.bfr.welcomeproto;
 
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -14,8 +14,7 @@ import com.bfr.buddy.usb.shared.IUsbCommadRsp;
 import com.bfr.buddy.utils.values.FloatingWidgetVisibility;
 import com.bfr.buddysdk.BuddyActivity;
 import com.bfr.buddysdk.BuddySDK;
-import com.bfr.grafcetexample.grafcet.MoveSequence;
-import com.bfr.grafcetexample.grafcet.YesSequence;
+import com.bfr.welcomeproto.grafcet.*;
 
 
 public class MainActivity extends BuddyActivity {
@@ -28,8 +27,13 @@ public class MainActivity extends BuddyActivity {
     private Switch enableWheels;
 
     //grafcet definition
-    private MoveSequence moveSequenceGrafcet = new MoveSequence( "MoveSequence");
-    private YesSequence yesSequence = new YesSequence( "YesSequence");
+//    private MoveSequence moveSequenceGrafcet = new MoveSequence( "MoveSequence");
+//    private YesSequence yesSequence = new YesSequence( "YesSequence");
+    private MainGrafcet mainGrafcet = new MainGrafcet ("mainGrafcet");
+    private LookingForSomeone lookinForSomeoneGrafcet = new LookingForSomeone( "LookingForSomeone");
+    private InitGrafcet initGrafcet = new InitGrafcet( "InitGrafcet");
+    private Interact interactGrafcet = new Interact( "InteractGrafcet");
+    private ComeHere comeHereGrafcet = new ComeHere( "ComeHereGrafcet");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +51,22 @@ public class MainActivity extends BuddyActivity {
             public void onClick(View v) {
 
                 // reset grafcet
-                moveSequenceGrafcet.go = false;
-                moveSequenceGrafcet.step_num = 0;
-                yesSequence.go = false;
-                yesSequence.step_num = 0;
+//                moveSequenceGrafcet.go = false;
+//                moveSequenceGrafcet.step_num = 0;
+//                yesSequence.go = false;
+//                yesSequence.step_num = 0;
+
+                mainGrafcet.go = false;
+                mainGrafcet.step_num = 0;
+                lookinForSomeoneGrafcet.go = false;
+                lookinForSomeoneGrafcet.step_num = 0;
+                interactGrafcet.go = false;
+                interactGrafcet.step_num=0;
+                comeHereGrafcet.go = false;
+                comeHereGrafcet.step_num=0;
+
+                initGrafcet.go = false;
+                initGrafcet.step_num = 0;
             }
         }); // end listener
 
@@ -59,8 +75,12 @@ public class MainActivity extends BuddyActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // set start signal for grafcet
-                moveSequenceGrafcet.go = isChecked;
-                yesSequence.go = isChecked;
+//                moveSequenceGrafcet.go = isChecked;
+//                yesSequence.go = isChecked;
+
+                mainGrafcet.go = isChecked;
+
+
             } // end Onchecked
         }); // end listener
 
@@ -102,8 +122,15 @@ public class MainActivity extends BuddyActivity {
         /**
          * Grafcet
          */
-        moveSequenceGrafcet.start();
-        yesSequence.start();
+//        moveSequenceGrafcet.start();
+//        yesSequence.start();
+
+        mainGrafcet.start();
+        lookinForSomeoneGrafcet.start();
+        initGrafcet.start();
+        interactGrafcet.start();
+        comeHereGrafcet.start();
+
 
     }  // End onCreate
 
@@ -113,8 +140,15 @@ public class MainActivity extends BuddyActivity {
     super.onPause();
     Log.i(TAG, "onPause");
     // stop grafcet
-    moveSequenceGrafcet.stop();
-    yesSequence.stop();
+//    moveSequenceGrafcet.stop();
+//    yesSequence.stop();
+
+    mainGrafcet.stop();
+    lookinForSomeoneGrafcet.stop();
+    initGrafcet.stop();
+    interactGrafcet.start();
+    comeHereGrafcet.start();
+
     }
 
 
@@ -123,10 +157,21 @@ public class MainActivity extends BuddyActivity {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
         // stop grafcet
-        moveSequenceGrafcet.stop();
-        yesSequence.stop();
+//        moveSequenceGrafcet.stop();
+//        yesSequence.stop();
         MoveSequence.step_num=0;
         YesSequence.step_num=0;
+
+        mainGrafcet.stop();
+        lookinForSomeoneGrafcet.stop();
+        mainGrafcet.step_num=0;
+        lookinForSomeoneGrafcet.step_num=0;
+        initGrafcet.stop();
+        initGrafcet.step_num=0;
+        interactGrafcet.stop();
+        interactGrafcet.step_num=0;
+        comeHereGrafcet.stop();
+        comeHereGrafcet.step_num=0;
     }
 
     @Override
@@ -134,8 +179,14 @@ public class MainActivity extends BuddyActivity {
         super.onResume();
         Log.i(TAG, "onResume");
         // restart grafcet
-        moveSequenceGrafcet.start();
-        yesSequence.start();
+//        moveSequenceGrafcet.start();
+//        yesSequence.start();
+
+        mainGrafcet.start();
+        lookinForSomeoneGrafcet.start();
+        initGrafcet.start();
+        interactGrafcet.start();
+        comeHereGrafcet.start();
     }
 
 
@@ -143,8 +194,8 @@ public class MainActivity extends BuddyActivity {
     //This function is called when the SDK is ready
     public void onSDKReady() {
 
-        BuddySDK.UI.setCloseWidgetVisibility(FloatingWidgetVisibility.ALWAYS);
-        BuddySDK.UI.setMenuWidgetVisibility(FloatingWidgetVisibility.ALWAYS);
+        BuddySDK.UI.setCloseWidgetVisibility(FloatingWidgetVisibility.ON_TOUCH);
+        BuddySDK.UI.setMenuWidgetVisibility(FloatingWidgetVisibility.ON_TOUCH);
     }
 
 

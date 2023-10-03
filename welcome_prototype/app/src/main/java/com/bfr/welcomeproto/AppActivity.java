@@ -1,4 +1,4 @@
-package com.bfr.grafcetexample;
+package com.bfr.welcomeproto;
 
 import com.bfr.buddysdk.BuddyApplication;
 

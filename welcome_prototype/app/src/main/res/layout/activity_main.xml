@@ -5,28 +5,26 @@
     android:id="@+id/view_face"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80FFFFFF"
-    tools:context="com.bfr.grafcetexample.MainActivity">
+
+    tools:context="com.bfr.welcomeproto.MainActivity">
 
 
     <Button
         android:id="@+id/resetBtn"
-        android:layout_width="126dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="83dp"
+        android:layout_height="40dp"
         android:text="RESET"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/startChckBx"
-        app:layout_constraintTop_toBottomOf="@+id/startChckBx" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/startChckBx"
+        app:layout_constraintTop_toTopOf="@+id/startChckBx" />
 
     <CheckBox
         android:id="@+id/startChckBx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="112dp"
-        android:text="Check/Uncheck to start/stop"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="344dp"
+        android:text="start/stop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,10 +32,11 @@
         android:id="@+id/enableSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Enable wheels"
-        app:layout_constraintStart_toStartOf="@+id/resetBtn"
-        app:layout_constraintTop_toBottomOf="@+id/resetBtn" />
+        android:layout_marginStart="360dp"
+        android:layout_marginTop="12dp"
+        android:text="Wheels"
+        app:layout_constraintStart_toEndOf="@+id/resetBtn"
+        app:layout_constraintTop_toTopOf="@+id/resetBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
