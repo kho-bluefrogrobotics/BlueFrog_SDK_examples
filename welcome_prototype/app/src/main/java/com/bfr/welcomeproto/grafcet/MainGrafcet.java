@@ -123,7 +123,7 @@ public class MainGrafcet extends bfr_Grafcet  {
 
                 case 25 : // Wait for end of Interact Grafcet
                     if (!Interact.go)
-                        step_num = 20;
+                        step_num = 3;
                     break;
 
                 default :

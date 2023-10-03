@@ -76,7 +76,7 @@ public class LookingForSomeone extends bfr_Grafcet  {
 
     private long lastBITime;
     private long lastCallOut;
-    private  final long  TIME_TO_PLAY_BI = 11000;
+    private  final long  TIME_TO_PLAY_BI = 5000;
     private  final long  TIME_TO_CALL_OUT = 5000;
     private long _TIMEOUT = 10000;
     final double THRESHOLD = 0.75;

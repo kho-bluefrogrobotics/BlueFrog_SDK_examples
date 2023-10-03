@@ -3,36 +3,17 @@ package com.bfr.welcomeproto.grafcet;
 
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.bfr.buddy.speech.shared.ITTSCallback;
 import com.bfr.buddy.ui.shared.FacialExpression;
 import com.bfr.buddy.usb.shared.IUsbCommadRsp;
 import com.bfr.buddy.vision.shared.Detections;
 import com.bfr.buddysdk.BuddySDK;
-import com.bfr.buddysdk.Interpreter.Interpreter.BehaviourInterpreter;
-import com.bfr.buddysdk.Interpreter.Interpreter.OnBehaviourAlgorithmListener;
-import com.bfr.buddysdk.Interpreter.Interpreter.OnRunInstructionListener;
-import com.bfr.buddysdk.Interpreter.Structures.Algorithm.BehaviourAlgorithmStorage;
-import com.bfr.buddysdk.Interpreter.Structures.Instructions.Abstract.ABehaviourInstruction;
 import com.bfr.buddysdk.services.companion.Task;
 import com.bfr.buddysdk.services.companion.TaskCallback;
-import com.bfr.welcomeproto.R;
 import com.bfr.welcomeproto.utils.bfr_Grafcet;
-import com.google.android.exoplayer2.ui.PlayerView;
 
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class ComeHere extends bfr_Grafcet implements OnRunInstructionListener, OnBehaviourAlgorithmListener {
+public class ComeHere extends bfr_Grafcet {
 
 
     public ComeHere(String mname) {
@@ -75,7 +56,7 @@ public class ComeHere extends bfr_Grafcet implements OnRunInstructionListener, O
    Detections faces;
 
     public static Task followMe;
-    public static String taskStatus = "";
+    public static String followStatus = "";
 
     // called at end of mvt
     private IUsbCommadRsp iUsbCommadRsp = new IUsbCommadRsp.Stub(){
@@ -175,22 +156,22 @@ public class ComeHere extends bfr_Grafcet implements OnRunInstructionListener, O
                         @Override
                         public void onStarted() {
                             Log.i(name, "Starting FollowMe" );
-                            taskStatus="started";
+                            followStatus ="started";
                         }
 
                         @Override
                         public void onSuccess(String s) {
-                            taskStatus="finished";
+                            followStatus ="finished";
                         }
 
                         @Override
                         public void onCancel() {
-                            taskStatus="cancel";
+                            followStatus ="cancel";
                         }
 
                         @Override
                         public void onError(String s) {
-                            taskStatus="error";
+                            followStatus ="error";
                         }
                     });
 
@@ -222,23 +203,4 @@ public class ComeHere extends bfr_Grafcet implements OnRunInstructionListener, O
     }; // end new runnable
 
 
-    private int getRandomNumberInRange(int min, int max) {
-
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
-    }
-
-    @Override
-    public void OnBehaviourAlgorithm(boolean hasAborted) {
-
-    }
-
-    @Override
-    public void OnRunInstruction(ABehaviourInstruction instruction) {
-
-    }
 }

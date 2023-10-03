@@ -21,6 +21,8 @@ import com.bfr.buddysdk.Interpreter.Interpreter.OnBehaviourAlgorithmListener;
 import com.bfr.buddysdk.Interpreter.Interpreter.OnRunInstructionListener;
 import com.bfr.buddysdk.Interpreter.Structures.Algorithm.BehaviourAlgorithmStorage;
 import com.bfr.buddysdk.Interpreter.Structures.Instructions.Abstract.ABehaviourInstruction;
+import com.bfr.buddysdk.services.companion.Task;
+import com.bfr.buddysdk.services.companion.TaskCallback;
 import com.bfr.buddysdk.services.speech.STTTask;
 import com.bfr.welcomeproto.R;
 import com.bfr.welcomeproto.utils.bfr_Grafcet;
@@ -67,6 +69,9 @@ public class Interact extends bfr_Grafcet {
     STTTask sttTask;
     STTResult sttResult;
     boolean endSTT= false;
+
+    Task biTask;
+    String endBI="";
 
     public Interact(String mname) {
         super(mname);
@@ -159,12 +164,12 @@ public class Interact extends bfr_Grafcet {
                     break;
 
                 case 12: // check recognition
-                    if(recognizedFace.getScore()>=0.3)
+                    if(recognizedFace.getScore()>=0.6)
                     {
                         BuddySDK.Speech.startSpeaking("Je te reconnais, tu t'appelle " + recognizedFace.getName() );
-
+                        step_num = 72;
                     }
-                        else
+                    else
                     {
                     BuddySDK.Speech.startSpeaking("ça fait plaisir de voir de nouvelles têtes!" );
                         step_num = 50;
@@ -228,7 +233,54 @@ public class Interact extends bfr_Grafcet {
 
                         }
                     });
-                    step_num = 65;
+                    step_num = 68;
+                    break;
+
+                case 68: // wait end of speach
+                    if(BuddySDK.Speech.isReadyToSpeak())
+                        step_num=70;
+                    break;
+
+                case 70 : // say bye
+                    BuddySDK.Speech.startSpeaking("A bientôt! " );
+                    step_num = 72;
+
+                case 72: // wait end of speach
+                    if(BuddySDK.Speech.isReadyToSpeak())
+                        step_num=75;
+                    break;
+
+                case 75: // Play exit BI
+                    ComeHere.followMe.stop();
+                    biTask = BuddySDK.Companion.createBICategoryTask("idle");
+                    endBI = "";
+                    biTask.start(new TaskCallback() {
+                        @Override
+                        public void onStarted() {
+                            endBI="started";
+                            step_num = 78;
+                        }
+
+                        @Override
+                        public void onSuccess(String s) {
+                            endBI="success";
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            endBI="cancel";
+                        }
+
+                        @Override
+                        public void onError(String s) {
+                            endBI="error";
+                        }
+                    });
+
+                case 78: // wait end of BI
+                    Log.i(name, "current status : " + endBI);
+                    if(endBI.toUpperCase().contains("SUCCESS"))
+                        step_num = 999;
                     break;
 
                 case 999: // exit grafcet
