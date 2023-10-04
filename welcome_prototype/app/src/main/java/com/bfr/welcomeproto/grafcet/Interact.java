@@ -153,7 +153,7 @@ public class Interact extends bfr_Grafcet {
 
 
                 case 2: // Say hello
-                    BuddySDK.Speech.startSpeaking("Bonjour, comment ça va?");
+                    BuddySDK.Speech.startSpeaking("");
                     step_num=5;
                     break;
 
@@ -206,12 +206,12 @@ public class Interact extends bfr_Grafcet {
                     Log.i(name, "Face recognized: " + recognizedFace.getName() + " " + recognizedFace.getScore());
                     if(recognizedFace.getScore()>=0.3)
                     {
-                        BuddySDK.Speech.startSpeaking("Je te reconnais, tu t'appelle " + recognizedFace.getName() );
+                        BuddySDK.Speech.startSpeaking("Salut  " + recognizedFace.getName() +" \\pause=500\\, ça fait plaisir de te revoir! On se dit \\pause=50\\  à plus tard ?");
                         step_num = 72;
                     }
                     else
                     {
-                    BuddySDK.Speech.startSpeaking("ça fait plaisir de voir de nouvelles têtes!" );
+                    BuddySDK.Speech.startSpeaking("Bonjour, Je ne crois pas qu'on se soit présenté!" );
                         step_num = 50;
                     }
 
@@ -224,7 +224,7 @@ public class Interact extends bfr_Grafcet {
                         break;
 
                 case 55 : // ask name
-                    BuddySDK.Speech.startSpeaking("On fait connaissance ? Comment est-ce que tu t'appelles?" );
+                    BuddySDK.Speech.startSpeaking("\\pause=500\\ On fait connaissance ? Comment est-ce que tu t'appelles?" );
                     step_num = 56;
 
                 case 56: // wait end of speach

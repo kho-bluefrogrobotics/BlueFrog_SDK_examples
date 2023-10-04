@@ -143,7 +143,7 @@ public class ComeHere extends bfr_Grafcet {
 
 
                 case 1 : // call
-                        BuddySDK.Speech.startSpeaking("Hey! Salut, toi ! " );
+                        BuddySDK.Speech.startSpeaking("Hey! Coucou !Tu veux parler un peu avec moi?" );
                         step_num = 2;
 
                 case 2: // wait end of speach
