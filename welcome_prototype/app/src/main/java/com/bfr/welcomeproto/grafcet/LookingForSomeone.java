@@ -193,7 +193,7 @@ public class LookingForSomeone extends bfr_Grafcet  {
                     if (humans.getNumOfDetections()>0)
                         step_num=30;
                     //else if arrived at the right position
-//                    Log.i(TAG, "No positiobn: "+BuddySDK.Actuators.getNoPosition());
+                    Log.i(TAG, "No positiobn: "+BuddySDK.Actuators.getNoPosition());
                     if(BuddySDK.Actuators.getNoPosition()>=50 || bypass)
                         step_num = 35;
 
@@ -226,7 +226,7 @@ public class LookingForSomeone extends bfr_Grafcet  {
                     if (humans.getNumOfDetections()>0)
                         step_num=30;
                     //else if arrived at the left position
-//                    Log.i(TAG, "No positiobn: "+BuddySDK.Actuators.getNoPosition());
+                    Log.i(TAG, "No positiobn: "+BuddySDK.Actuators.getNoPosition());
                     if(BuddySDK.Actuators.getNoPosition()<=-50 || bypass)
                         step_num = 35;
                     break;

@@ -1,6 +1,7 @@
 package com.bfr.welcomeproto.grafcet;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.RemoteException;
 import android.util.Log;
 import android.widget.ImageView;
@@ -32,10 +33,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -72,6 +76,8 @@ public class Interact extends bfr_Grafcet {
 
     Task biTask;
     String endBI="";
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMddHHmmss");
 
     public Interact(String mname) {
         super(mname);
@@ -153,18 +159,52 @@ public class Interact extends bfr_Grafcet {
 
                 case 5: // wait end of speach
                     if(BuddySDK.Speech.isReadyToSpeak())
+                        step_num=7;
+                    break;
+
+                case 7: // Stop Tracking
+                    ComeHere.followMe.stop();
+                    step_num=8;
+                    break;
+                case 8: // wait end of followmE
+                    if(ComeHere.followStatus.toUpperCase().contains("CANCEL"))
                         step_num=10;
                     break;
 
                 case 10: // try Id face
 
                     faces = BuddySDK.Vision.detectFace();
+                    // save bitmap
+                    try {
+                        String detectname = "" + simpleDateFormat.format(new Date()) + "_detect.jpg";
+                        Bitmap detectbmp = BuddySDK.Vision.getCVResultFrame();
+                        File file = new File("/sdcard/Documents", detectname);
+                        FileOutputStream out = new FileOutputStream(file);
+                        detectbmp.compress(Bitmap.CompressFormat.JPEG, 100,
+                                out);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
                     recognizedFace = BuddySDK.Vision.recognizeFace(faces, 0);
+
+                    // save bitmap
+                    try {
+                        String recogname = "" + simpleDateFormat.format(new Date()) + "_recog.jpg";
+                        Bitmap recogbmp = BuddySDK.Vision.getCVResultFrame();
+                        File file = new File("/sdcard/Documents", recogname);
+                        FileOutputStream out = new FileOutputStream(file);
+                        recogbmp.compress(Bitmap.CompressFormat.JPEG, 100,
+                                out);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     step_num = 12;
                     break;
 
                 case 12: // check recognition
-                    if(recognizedFace.getScore()>=0.6)
+                    Log.i(name, "Face recognized: " + recognizedFace.getName() + " " + recognizedFace.getScore());
+                    if(recognizedFace.getScore()>=0.3)
                     {
                         BuddySDK.Speech.startSpeaking("Je te reconnais, tu t'appelle " + recognizedFace.getName() );
                         step_num = 72;
@@ -216,12 +256,23 @@ public class Interact extends bfr_Grafcet {
                     break;
 
                 case 60 : // acknowlege user name
-                    BuddySDK.Speech.startSpeaking("Eh bien \\\\pause=500\\\\ enchanté de te connaître  " + userName );
+                    BuddySDK.Speech.startSpeaking("Eh bien \\pause=500\\ enchanté de te connaître  " + userName );
                     step_num = 65;
                     break;
 
                 case 65 : // record face
                     faces = BuddySDK.Vision.detectFace();
+                    // save bitmap
+                    try {
+                        String detect2name = "" + simpleDateFormat.format(new Date()) + "_detect2.jpg";
+                        Bitmap detect2bmp = BuddySDK.Vision.getCVResultFrame();
+                        File file = new File("/sdcard/Documents", detect2name);
+                        FileOutputStream out = new FileOutputStream(file);
+                        detect2bmp.compress(Bitmap.CompressFormat.JPEG, 100,
+                                out);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     BuddySDK.Vision.saveFace(faces, 0, userName, new IVisionRsp.Stub() {
                         @Override
                         public void onSuccess(String s) throws RemoteException {
@@ -233,6 +284,17 @@ public class Interact extends bfr_Grafcet {
 
                         }
                     });
+                    // save bitmap
+                    try {
+                        String savename = "" + simpleDateFormat.format(new Date()) + "_save.jpg";
+                        Bitmap savebmp = BuddySDK.Vision.getCVResultFrame();
+                        File file = new File("/sdcard/Documents", savename);
+                        FileOutputStream out = new FileOutputStream(file);
+                        savebmp.compress(Bitmap.CompressFormat.JPEG, 100,
+                                out);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     step_num = 68;
                     break;
 
@@ -278,7 +340,7 @@ public class Interact extends bfr_Grafcet {
                     });
 
                 case 78: // wait end of BI
-                    Log.i(name, "current status : " + endBI);
+//                    Log.i(name, "current status : " + endBI);
                     if(endBI.toUpperCase().contains("SUCCESS"))
                         step_num = 999;
                     break;

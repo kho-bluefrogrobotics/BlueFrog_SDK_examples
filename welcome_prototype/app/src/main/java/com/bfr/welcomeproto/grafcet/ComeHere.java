@@ -141,7 +141,17 @@ public class ComeHere extends bfr_Grafcet {
                     }
                     break;
 
-                case 1: // wait for face
+
+                case 1 : // call
+                        BuddySDK.Speech.startSpeaking("Hey! Salut, toi ! " );
+                        step_num = 2;
+
+                case 2: // wait end of speach
+                    if(BuddySDK.Speech.isReadyToSpeak())
+                        step_num=5;
+                    break;
+
+                case 5: // wait for face
                     if(BuddySDK.Vision.detectFace().getNumOfDetections()>0)
                     {
                         Log.i(name, "FACE DETECTED" );
@@ -149,7 +159,7 @@ public class ComeHere extends bfr_Grafcet {
                     }
                     break;
 
-                case 10: // wait for face
+                case 10: // start WatchMe
                     followMe = BuddySDK.Companion.createFollowMeTask();
 
                     followMe.start(new TaskCallback() {

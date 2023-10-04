@@ -64,6 +64,7 @@ public class MainActivity extends BuddyActivity {
                 interactGrafcet.step_num=0;
                 comeHereGrafcet.go = false;
                 comeHereGrafcet.step_num=0;
+                ComeHere.followMe.stop();
 
                 initGrafcet.go = false;
                 initGrafcet.step_num = 0;
