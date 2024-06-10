@@ -3,8 +3,12 @@ package com.bfr.sdkv2_tts;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ public class MainActivity extends BuddyActivity {
     EditText to_say;
     Button setFR, setENG;
 
+    Spinner dropdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,30 @@ public class MainActivity extends BuddyActivity {
         findViewById(R.id.pitch).setOnClickListener(v -> onButtonPitch());
         findViewById(R.id.englishBtn).setOnClickListener(v -> onButtonEnglish());
         findViewById(R.id.frenchBtn).setOnClickListener(v -> onButtonFrench());
+        dropdown = (Spinner) findViewById(R.id.langSpinner);
+// Create an ArrayAdapter using the string array and a default spinner layout.
+        //create a list of items for the spinner.
+        String[] items = new String[]{"Alex", "Alice", "Amir", "Elisa", "Guus", "Kate", "Lena", "Lola", "Manuel", "Mark", "Max", "Roxane", "Show", "Yasmin"};
+//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+//set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(),
+                        "Voice: "+ String.valueOf(items[i]),
+                        Toast.LENGTH_SHORT).show();
+                BuddySDK.Speech.setSpeakerVoice(items[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         //linking TextView variable to TextView widget
         speed_text= findViewById(R.id.speed_enter);
         volume_text= findViewById(R.id.volume_enter);

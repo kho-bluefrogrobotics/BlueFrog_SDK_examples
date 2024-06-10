@@ -31,6 +31,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <Spinner
+        android:id="@+id/langSpinner"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="128dp"
+        app:layout_constraintStart_toEndOf="@+id/speed"
+        app:layout_constraintTop_toTopOf="@+id/speed" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="151dp"
