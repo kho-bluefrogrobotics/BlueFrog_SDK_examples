@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bfr.buddy.vision.shared.Tracking;
+import com.bfr.buddy.vision.shared.enums.BuddyCamera;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -25,7 +28,10 @@ public class tracking extends Fragment {
     private Button mStartBtn, mStopBtn, mGetBtn;
     private TextView resultText;
     private ImageView mPreviewCamera;
-    private CheckBox displayBox;
+    private CheckBox displayBox; private RadioGroup cameraRG;
+    private RadioButton wideAngleRB, zoomRB;
+
+    private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;
 
     //Element to display frame from Camera
     private Handler mHandler = new Handler();
@@ -55,16 +61,32 @@ public class tracking extends Fragment {
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);
         displayBox = view.findViewById(R.id.displayChckbox);
+        cameraRG = view.findViewById(R.id.cameraRadioGroup);
+        wideAngleRB = view.findViewById(R.id.wideAngleRB);
+        zoomRB = view.findViewById(R.id.zoomRB);
+
+
+        // camera selection
+        cameraRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if(wideAngleRB.isChecked())
+                    cameraId = BuddyCamera.WIDE_ANGLE;
+                else
+                    cameraId = BuddyCamera.ZOOM;
+
+            }
+        });
 
         /*** Tracking */
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    BuddySDK.Vision.startTracking();
-                    Log.w("coucou", "Start CV Tracking");
+                    BuddySDK.Vision.startTracking(cameraId);
+
                     mHandler.post(mRunnablePreviewFrame);
-                    Log.w("coucou", "(after psot viewer)");
                 } catch (IllegalStateException e) {
                     e.printStackTrace();
                 }
@@ -74,7 +96,7 @@ public class tracking extends Fragment {
         mStopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuddySDK.Vision.stopTracking();
+                BuddySDK.Vision.stopTracking(cameraId);
                 mHandler.removeCallbacksAndMessages(null);
             }
         });
@@ -83,7 +105,7 @@ public class tracking extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Tracking targetResult = BuddySDK.Vision.getTracking();
+                Tracking targetResult = BuddySDK.Vision.getTracking(cameraId);
 
                 resultText.setText("Target= " +   targetResult.isTrackingSuccessfull() + " "
                         + " " + targetResult.getLeftPos()
@@ -109,6 +131,6 @@ public class tracking extends Fragment {
         super.onPause();
         //reset
         mHandler.removeCallbacksAndMessages(null);
-        BuddySDK.Vision.stopMotionDetection();
+        BuddySDK.Vision.stopMotionDetection(cameraId);
     }
 }
