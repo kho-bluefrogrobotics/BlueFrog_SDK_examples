@@ -28,7 +28,8 @@ public class tracking extends Fragment {
     private Button mStartBtn, mStopBtn, mGetBtn;
     private TextView resultText;
     private ImageView mPreviewCamera;
-    private CheckBox displayBox; private RadioGroup cameraRG;
+    private CheckBox displayBox;
+    private RadioGroup cameraRG;
     private RadioButton wideAngleRB, zoomRB;
 
     private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;

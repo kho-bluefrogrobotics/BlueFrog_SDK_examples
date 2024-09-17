@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bfr.buddy.vision.shared.Detections;
 import com.bfr.buddy.vision.shared.FaceRecognition;
 import com.bfr.buddy.vision.shared.IVisionRsp;
+import com.bfr.buddy.vision.shared.enums.BuddyCamera;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -28,6 +31,11 @@ public class facerecog extends Fragment {
     private EditText nameText;
     private EditText indexText;
     private ImageView mPreviewCamera;
+    private RadioGroup cameraRG;
+    private RadioButton wideAngleRB, zoomRB;
+
+    private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,19 +53,35 @@ public class facerecog extends Fragment {
         nameText = view.findViewById(R.id.editTextName);
         indexText = view.findViewById(R.id.editTextIndex);
         mPreviewCamera = view.findViewById(R.id.previewCam);
+        cameraRG = view.findViewById(R.id.cameraRadioGroup);
+        wideAngleRB = view.findViewById(R.id.wideAngleRB);
+        zoomRB = view.findViewById(R.id.zoomRB);
 
+
+        // camera selection
+        cameraRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if(wideAngleRB.isChecked())
+                    cameraId = BuddyCamera.WIDE_ANGLE;
+                else
+                    cameraId = BuddyCamera.ZOOM;
+
+            }
+        });
         /*** Face recognition*/
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 // First, detect all the faces in front of the camera
-                Detections listOfFaces = BuddySDK.Vision.detectFace(0.5f);
+                Detections listOfFaces = BuddySDK.Vision.detectFace( cameraId,0.5f);
                 // index of the face to save for further recognition
                 int idxOfFaceToSave = 0;
 
                 // linking a name to the face for further recognition
-                BuddySDK.Vision.saveFace(listOfFaces,
+                BuddySDK.Vision.saveFace(cameraId, listOfFaces,
                         idxOfFaceToSave,
                         nameText.getText().toString(),
                         new IVisionRsp.Stub() {
@@ -88,12 +112,12 @@ public class facerecog extends Fragment {
             public void onClick(View view) {
 
                 // First, detect all the faces in front of the camera
-                Detections listOfFaces = BuddySDK.Vision.detectFace(0.5f);
+                Detections listOfFaces = BuddySDK.Vision.detectFace(cameraId, 0.5f);
                 // index of the face to recognize
                 int idxOfFaceToSave = 0;
 
                 // Actual recognition
-                String recognizedName =  BuddySDK.Vision.recognizeFace(listOfFaces, idxOfFaceToSave).getName();
+                String recognizedName =  BuddySDK.Vision.recognizeFace(cameraId, listOfFaces, idxOfFaceToSave).getName();
 
                 // Display
                 resultText.setText("Face recognized:\n"+recognizedName);
