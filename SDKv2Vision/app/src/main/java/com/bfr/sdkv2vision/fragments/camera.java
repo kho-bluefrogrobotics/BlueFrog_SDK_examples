@@ -35,10 +35,10 @@ public class camera extends Fragment {
     private RadioGroup cameraRG;
     private RadioButton wideAngleRB, zoomRB;
 
+    private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;
+
     TextView exposureTxtV;
     TextView isoTxtV;
-
-    private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;
 
     //Element to display frame from Camera
     private  Runnable mRunnablePreviewFrame = new Runnable() {
@@ -47,7 +47,6 @@ public class camera extends Fragment {
             try {
                 Log.i("SDKVision", "Runnable to get frame");
                 //display frame grand angle
-//                mPreviewCamera.setImageBitmap(BuddySDK.Vision.getGrandAngleFrame());
                 mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCameraFrame(cameraId));
                 mHandler.post(this);
 
@@ -108,7 +107,7 @@ public class camera extends Fragment {
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuddySDK.Vision.startCamera(new IVisionRsp.Stub() {
+                BuddySDK.Vision.startCamera(cameraId, new IVisionRsp.Stub() {
                     @Override
                     public void onSuccess(String s) throws RemoteException {
                         Log.i("Camera", "camera started successfully");
@@ -125,7 +124,7 @@ public class camera extends Fragment {
         mStopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuddySDK.Vision.stopCamera(new IVisionRsp.Stub() {
+                BuddySDK.Vision.stopCamera(cameraId, new IVisionRsp.Stub() {
                     @Override
                     public void onSuccess(String s) throws RemoteException {
                         Log.i("Camera", "camera stopped successfully");
@@ -143,12 +142,12 @@ public class camera extends Fragment {
             @Override
             public void onClick(View v) {
 
-                int exposure = Integer.parseInt( exposureTxtV.getText().toString());
-
-                int iso = Integer.parseInt( isoTxtV.getText().toString());
+//                int exposure = Integer.parseInt( exposureTxtV.getText().toString());
+//
+//                int iso = Integer.parseInt( isoTxtV.getText().toString());
 
 //                BuddySDK.Vision.adjustexposure(exposure, iso);
-                CameraStatus cStatus = BuddySDK.Vision.getStatus(0);
+                CameraStatus cStatus = BuddySDK.Vision.getStatus(cameraId);
 
                 resultText.clearComposingText();
                 resultText.setText("Camera status:\n" +

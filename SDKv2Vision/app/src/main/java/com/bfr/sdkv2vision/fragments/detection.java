@@ -10,12 +10,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 //import com.bfr.buddy.vision.shared.ArucoMarker;
+import com.bfr.buddy.vision.shared.ArucoMarker;
 import com.bfr.buddy.vision.shared.ArucoMarkers;
 import com.bfr.buddy.vision.shared.Detections;
 //import com.bfr.buddy.vision.shared.Pose;
+import com.bfr.buddy.vision.shared.Pose;
+import com.bfr.buddy.vision.shared.enums.BuddyCamera;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -26,9 +31,13 @@ public class detection extends Fragment {
     private TextView resultText;
     private EditText thresText;
     private ImageView mPreviewCamera;
+    private RadioGroup cameraRG;
+    private RadioButton wideAngleRB, zoomRB;
+
+    private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;
 
     // elements to detect
-//    ArucoMarker[] mArucos;
+    ArucoMarker[] mArucos;
     Detections mFaces;
     Detections mPersons;
 
@@ -49,30 +58,46 @@ public class detection extends Fragment {
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);
         thresText = view.findViewById(R.id.thresTextView);
+        cameraRG = view.findViewById(R.id.cameraRadioGroup);
+        wideAngleRB = view.findViewById(R.id.wideAngleRB);
+        zoomRB = view.findViewById(R.id.zoomRB);
+
+        // camera selection
+        cameraRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if(wideAngleRB.isChecked())
+                    cameraId = BuddyCamera.WIDE_ANGLE;
+                else
+                    cameraId = BuddyCamera.ZOOM;
+
+            }
+        });
 
         /*** AprilTag detection*/
         mAprilTagBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                try {
-//                    mArucos = BuddySDK.Vision.getListOfArucos();
-//                } catch (IllegalStateException e) {
-//                    e.printStackTrace();
-//                }
-//                // display
-//                if (mArucos.length > 0) {
-//                    getActivity().runOnUiThread(() -> {
-//                        //
-//                        resultText.clearComposingText();
-//                        resultText.setText("1st Aruco detected:\n" +
-//                                mArucos[0].getId() + " " +
-//                                mArucos[0].getCorners()[0][0] + " " +
-//                                mArucos[0].getCorners()[0][1]);
-//                        // Display image
-//                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
-//                    });
-//
-//                } // end if myArucos size >0
+                try {
+                    mArucos = BuddySDK.Vision.getListOfArucos(cameraId);
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
+                // display
+                if (mArucos.length > 0) {
+                    getActivity().runOnUiThread(() -> {
+                        //
+                        resultText.clearComposingText();
+                        resultText.setText("1st Aruco detected:\n" +
+                                mArucos[0].getId() + " " +
+                                mArucos[0].getCorners()[0][0] + " " +
+                                mArucos[0].getCorners()[0][1]);
+                        // Display image
+                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame(cameraId));
+                    });
+
+                } // end if myArucos size >0
             }
         });
 
@@ -80,29 +105,29 @@ public class detection extends Fragment {
         mPoseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                try {
-//
-//                    if (mArucos.length > 0)
-//                    {
-//                        int realArucoSize = 10; //put here the real marker size in cm or m
-//                        Pose arucoPose = BuddySDK.Vision.EstimateArucoPose(mArucos[0], realArucoSize);
-//
-//                        getActivity().runOnUiThread(() -> {
-//                            //
-//                            resultText.clearComposingText();
-//                            resultText.setText("1st Aruco Pose estimation:\n" +
-//                                    arucoPose.getX() + " " +
-//                                    arucoPose.getY() + " " +
-//                                    arucoPose.getThetaY());
-//                            // Display image
-//                            mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
-//                        });
-//
-//                    }
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                try {
+
+                    if (mArucos.length > 0)
+                    {
+                        int realArucoSize = 10; //put here the real marker size in cm or m
+                        Pose arucoPose = BuddySDK.Vision.EstimateArucoPose(mArucos[0], realArucoSize);
+
+                        getActivity().runOnUiThread(() -> {
+                            //
+                            resultText.clearComposingText();
+                            resultText.setText("1st Aruco Pose estimation:\n" +
+                                    arucoPose.getX() + " " +
+                                    arucoPose.getY() + " " +
+                                    arucoPose.getThetaY());
+                            // Display image
+                            mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame(cameraId));
+                        });
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -111,7 +136,7 @@ public class detection extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    mFaces = BuddySDK.Vision.detectFace(Float.parseFloat(thresText.getText().toString()));
+                    mFaces = BuddySDK.Vision.detectFace(cameraId, Float.parseFloat(thresText.getText().toString()));
                     // display
                     if (mFaces.getNumOfDetections()>0)
                     {
@@ -121,7 +146,7 @@ public class detection extends Fragment {
                                     mFaces.getLeftPos()[0] + " " +
                                     mFaces.getTopPos()[0]);
                         // Display image
-                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
+                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame(cameraId));
                     } // end if size >0
 
                 } catch (Exception e) {
@@ -135,7 +160,7 @@ public class detection extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    mPersons = BuddySDK.Vision.detectPerson(Float.parseFloat(thresText.getText().toString()));
+                    mPersons = BuddySDK.Vision.detectPerson(cameraId, Float.parseFloat(thresText.getText().toString()));
                     // display
                     if (mPersons.getNumOfDetections()>0)
                     {
@@ -145,7 +170,7 @@ public class detection extends Fragment {
                                 mPersons.getLeftPos()[0] + " " +
                                 mPersons.getTopPos()[0]);
                         // Display image
-                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
+                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame(cameraId));
                     } // end if size >0
 
                 } catch (Exception e) {
