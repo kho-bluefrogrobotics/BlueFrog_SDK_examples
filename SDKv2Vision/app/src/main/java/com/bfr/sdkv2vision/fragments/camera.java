@@ -14,10 +14,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bfr.buddy.vision.shared.CameraStatus;
 import com.bfr.buddy.vision.shared.IVisionRsp;
+import com.bfr.buddy.vision.shared.enums.BuddyCamera;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -29,15 +32,24 @@ public class camera extends Fragment {
     private ImageView mPreviewCamera;
     private Handler mHandler = new Handler();
     private CheckBox displayBox;
+    private RadioGroup cameraRG;
+    private RadioButton wideAngleRB, zoomRB;
+
+    TextView exposureTxtV;
+    TextView isoTxtV;
+
+    private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;
 
     //Element to display frame from Camera
     private  Runnable mRunnablePreviewFrame = new Runnable() {
         @Override
         public void run() {
             try {
+                Log.i("SDKVision", "Runnable to get frame");
                 //display frame grand angle
-                mPreviewCamera.setImageBitmap(BuddySDK.Vision.getGrandAngleFrame());
-                mHandler.postDelayed(this, 40);
+//                mPreviewCamera.setImageBitmap(BuddySDK.Vision.getGrandAngleFrame());
+                mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCameraFrame(cameraId));
+                mHandler.post(this);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -61,6 +73,26 @@ public class camera extends Fragment {
         mPreviewCamera = view.findViewById(R.id.previewCam);
         resultText = view.findViewById(R.id.resultText);
         displayBox = view.findViewById(R.id.displayChckbox);
+        exposureTxtV = view.findViewById(R.id.exposure);
+        isoTxtV = view.findViewById(R.id.iso);
+        cameraRG = view.findViewById(R.id.cameraRadioGroup);
+        wideAngleRB = view.findViewById(R.id.wideAngleRB);
+        zoomRB = view.findViewById(R.id.zoomRB);
+
+
+        // camera selection
+        cameraRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if(wideAngleRB.isChecked())
+                    cameraId = BuddyCamera.WIDE_ANGLE;
+                else
+                    cameraId = BuddyCamera.ZOOM;
+
+            }
+        });
+
         displayBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -71,7 +103,8 @@ public class camera extends Fragment {
             }
         });
 
-        /*** Camera management***/
+
+                /*** Camera management***/
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +143,11 @@ public class camera extends Fragment {
             @Override
             public void onClick(View v) {
 
+                int exposure = Integer.parseInt( exposureTxtV.getText().toString());
+
+                int iso = Integer.parseInt( isoTxtV.getText().toString());
+
+//                BuddySDK.Vision.adjustexposure(exposure, iso);
                 CameraStatus cStatus = BuddySDK.Vision.getStatus(0);
 
                 resultText.clearComposingText();

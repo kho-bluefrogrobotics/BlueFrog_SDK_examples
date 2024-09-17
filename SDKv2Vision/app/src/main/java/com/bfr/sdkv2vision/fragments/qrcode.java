@@ -15,8 +15,9 @@ import android.widget.TextView;
 
 import com.bfr.buddy.vision.shared.ArucoMarkers;
 import com.bfr.buddy.vision.shared.Detections;
-import com.bfr.buddy.vision.shared.Pose;
-import com.bfr.buddy.vision.shared.QRCode;
+//import com.bfr.buddy.vision.shared.Pose;
+//import com.bfr.buddy.vision.shared.QRCode;
+//import com.bfr.buddy.vision.shared.enums.QRDetectionMethod;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -27,47 +28,47 @@ public class qrcode extends Fragment {
     private ImageView mPreviewCamera;
 
     // elements to detect
-    QRCode[] mQRCodes;
+//    QRCode[] mQRCodes;
 
     private Handler mHandler = new Handler();
     //Element to display frame from Camera
     private  Runnable mRunnableQRPose = new Runnable() {
         @Override
         public void run() {
-            try {
-                //display frame grand angle
-                mQRCodes = BuddySDK.Vision.getQRCodes();
-                if(mQRCodes[0]==null)
-                    return;
-
-                Pose mPose = BuddySDK.Vision.EstimatePose(mQRCodes[0], 12.5 );
-
-                // display
-                if (mPose!=null) {
-                    getActivity().runOnUiThread(() -> {
-                        //
-                        String textToDisplay = "QRCode Pose:\n" +
-                                mPose.getX() + "  " +
-                                mPose.getY() + " " +
-                                mPose.getZ() + "\n" +
-                                mPose.getThetaX() + " " +
-                                mPose.getThetaY() + " " +
-                                mPose.getThetaZ();
-                        Log.i("QRCode", textToDisplay);
-
-                        resultText.clearComposingText();
-                        resultText.setText(textToDisplay);
-                        // Display image
-                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
-                    });
-
-                } // end if myArucos size >0
-
-                mHandler.postDelayed(this, 40);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                //display frame grand angle
+//                mQRCodes = BuddySDK.Vision.getListOfQRCodes();
+//                if(mQRCodes[0]==null)
+//                    return;
+//
+//                Pose mPose = BuddySDK.Vision.EstimateQRCodePose(mQRCodes[0], 12.5 );
+//
+//                // display
+//                if (mPose!=null) {
+//                    getActivity().runOnUiThread(() -> {
+//                        //
+//                        String textToDisplay = "QRCode Pose:\n" +
+//                                mPose.getX() + "  " +
+//                                mPose.getY() + " " +
+//                                mPose.getZ() + "\n" +
+//                                mPose.getThetaX() + " " +
+//                                mPose.getThetaY() + " " +
+//                                mPose.getThetaZ();
+//                        Log.i("QRCode", textToDisplay);
+//
+//                        resultText.clearComposingText();
+//                        resultText.setText(textToDisplay);
+//                        // Display image
+//                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
+//                    });
+//
+//                } // end if myArucos size >0
+//
+//                mHandler.postDelayed(this, 40);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
     };
 
@@ -88,25 +89,25 @@ public class qrcode extends Fragment {
         mDetectQRBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mQRCodes = BuddySDK.Vision.getQRCodes();
-
-                // display
-                if (mQRCodes.length > 0) {
-                    getActivity().runOnUiThread(() -> {
-                        //
-                        resultText.clearComposingText();
-                        resultText.setText("QRCode detected:\n" +
-                                mQRCodes[0].getData() + "\nPosition:  " +
-                                mQRCodes[0].getCorners()[0][0] + " " +
-                                mQRCodes[0].getCorners()[0][1]);
-                        // Display image
-                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
-                    });
-
-                } // end if myArucos size >0
-                else {
-                Log.i("QRCode", "No QRCode detected");
-                }
+//                mQRCodes = BuddySDK.Vision.getListOfQRCodes( QRDetectionMethod.NORMAL);
+//
+//                // display
+//                if (mQRCodes.length > 0) {
+//                    getActivity().runOnUiThread(() -> {
+//                        //
+//                        resultText.clearComposingText();
+//                        resultText.setText("QRCode detected:\n" +
+//                                mQRCodes[0].getData() + "\nPosition:  " +
+//                                mQRCodes[0].getCorners()[0][0] + " " +
+//                                mQRCodes[0].getCorners()[0][1]);
+//                        // Display image
+//                        mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
+//                    });
+//
+//                } // end if myArucos size >0
+//                else {
+//                Log.i("QRCode", "No QRCode detected");
+//                }
             }
         });
 
@@ -114,13 +115,13 @@ public class qrcode extends Fragment {
         mPoseQRBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mHandler.post(mRunnableQRPose);
 //
+////                mHandler.post(mRunnableQRPose);
+////
 //                if(mQRCodes[0]==null)
 //                    return;
 //
-//                Pose mPose = BuddySDK.Vision.EstimatePose(mQRCodes[0], 12.5 );
+//                Pose mPose = BuddySDK.Vision.EstimateQRCodePose(mQRCodes[0], 12.5 );
 //
 //                // display
 //                if (mPose!=null) {

@@ -52,7 +52,7 @@ public class facerecog extends Fragment {
             public void onClick(View view) {
 
                 // First, detect all the faces in front of the camera
-                Detections listOfFaces = BuddySDK.Vision.detectFace();
+                Detections listOfFaces = BuddySDK.Vision.detectFace(0.5f);
                 // index of the face to save for further recognition
                 int idxOfFaceToSave = 0;
 
@@ -88,7 +88,7 @@ public class facerecog extends Fragment {
             public void onClick(View view) {
 
                 // First, detect all the faces in front of the camera
-                Detections listOfFaces = BuddySDK.Vision.detectFace();
+                Detections listOfFaces = BuddySDK.Vision.detectFace(0.5f);
                 // index of the face to recognize
                 int idxOfFaceToSave = 0;
 
