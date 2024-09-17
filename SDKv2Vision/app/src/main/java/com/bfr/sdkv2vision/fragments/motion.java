@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bfr.buddy.vision.shared.MotionDetection;
+import com.bfr.buddy.vision.shared.enums.BuddyCamera;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.sdkv2vision.R;
 
@@ -23,6 +26,10 @@ public class motion extends Fragment {
     private TextView resultText;
     private EditText thresText;
     private ImageView mPreviewCamera;
+    private RadioGroup cameraRG;
+    private RadioButton wideAngleRB, zoomRB;
+
+    private BuddyCamera cameraId= BuddyCamera.WIDE_ANGLE;
 
 
     //Element to display frame from Camera
@@ -32,7 +39,7 @@ public class motion extends Fragment {
         public void run() {
             try {
                 //display frame grand angle
-                mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame());
+                mPreviewCamera.setImageBitmap(BuddySDK.Vision.getCVResultFrame(cameraId));
                 mHandler.postDelayed(this, 30);
 
             } catch (Exception e) {
@@ -55,13 +62,30 @@ public class motion extends Fragment {
         thresText = view.findViewById(R.id.textThres);
         resultText = view.findViewById(R.id.resultText);
         mPreviewCamera = view.findViewById(R.id.previewCam);
+        cameraRG = view.findViewById(R.id.cameraRadioGroup);
+        wideAngleRB = view.findViewById(R.id.wideAngleRB);
+        zoomRB = view.findViewById(R.id.zoomRB);
+
+
+        // camera selection
+        cameraRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if(wideAngleRB.isChecked())
+                    cameraId = BuddyCamera.WIDE_ANGLE;
+                else
+                    cameraId = BuddyCamera.ZOOM;
+
+            }
+        });
 
         /*** Motion detection*/
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    BuddySDK.Vision.startMotionDetection();
+                    BuddySDK.Vision.startMotionDetection(cameraId);
                     mHandler.post(mRunnablePreviewFrame);
                 } catch (IllegalStateException e) {
                   e.printStackTrace();
@@ -72,7 +96,7 @@ public class motion extends Fragment {
         mStopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuddySDK.Vision.stopMotionDetection();
+                BuddySDK.Vision.stopMotionDetection(cameraId);
                 mHandler.removeCallbacksAndMessages(null);
             }
         });
@@ -80,9 +104,9 @@ public class motion extends Fragment {
         mGetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MotionDetection motionResult = BuddySDK.Vision.getMotionDetection();
+                MotionDetection motionResult = BuddySDK.Vision.getMotionDetection(cameraId);
 
-                resultText.setText("Mvt= " +   BuddySDK.Vision.motionDetect() + " "+
+                resultText.setText("Mvt= " +   BuddySDK.Vision.motionDetect(cameraId) + " "+
                         motionResult.getAmplitude()
                         + " " + motionResult.getX()
                         + " " + motionResult.getY());
@@ -92,7 +116,7 @@ public class motion extends Fragment {
         mSetThresBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuddySDK.Vision.setMotionThres(Float.parseFloat(thresText.getText().toString()));
+                BuddySDK.Vision.setMotionThres(cameraId, Float.parseFloat(thresText.getText().toString()));
             }
         });
 
@@ -104,6 +128,6 @@ public class motion extends Fragment {
         super.onPause();
         //reset
         mHandler.removeCallbacksAndMessages(null);
-        BuddySDK.Vision.stopMotionDetection();
+        BuddySDK.Vision.stopMotionDetection(cameraId);
     }
 }
