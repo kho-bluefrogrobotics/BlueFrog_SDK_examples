@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,12 @@ import com.bfr.buddysdk.BuddyActivity;
 import com.bfr.buddysdk.BuddySDK;
 import com.bfr.buddysdk.services.speech.STTTask;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 
 /***
@@ -127,7 +134,7 @@ public class MainActivity extends BuddyActivity {
                 if (locale == Locale.ENGLISH)
                     fcfFilename = "audio_en.fcf";
                 else
-                    fcfFilename = "audio_fr.fcf";
+                    fcfFilename = "companion_commands_fr.fcf";
                 sttTask = BuddySDK.Speech.createCerenceTaskFromAssets(locale, fcfFilename, getAssets());
                 break;
             default:
@@ -196,6 +203,15 @@ public class MainActivity extends BuddyActivity {
                     if (!rule.isEmpty())
                         log += "\nRule: " + result.getRule();
                     Log.i(TAG, log);
+
+                    try {
+                        Thread.sleep(600);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    moveRecordingFile(result.getRule().replace("my_grammar#", ""), result.getConfidence());
+
                     Toast.makeText(mainActivity, log, Toast.LENGTH_LONG).show();
                     if (!isContinous) {
                         sttState.setText("");
@@ -244,4 +260,62 @@ public class MainActivity extends BuddyActivity {
         }
     }
 
+
+
+
+    void moveRecordingFile(String rule, int score)
+    {
+        // get all files in Cerence folder
+        String path = Environment.getExternalStorageDirectory().toString()+"/Cerence/fr/config";
+        Log.d("Files", "Path: " + path);
+        File directory = new File(path);
+        File[] files = directory.listFiles();
+        Log.d("Files", "Size: "+ files.length);
+        // Sort by name
+        if (files != null && files.length > 1) {
+            Arrays.sort(files, new Comparator<File>() {
+                @Override
+                public int compare(File object1, File object2) {
+                    return object1.getName().compareTo(object2.getName());
+                }
+            });
+        }
+
+//        for (int i = 0; i < files.length; i++)
+//        {
+//            Log.d("Files", "FileName:" + files[i].getName());
+//        }
+
+
+        // get last file
+        String lastfile = files[files.length-1].getAbsolutePath();
+
+        //check if ends with .wav
+        if(lastfile.endsWith(".wav")){
+
+            Log.d("Files", "last FileName: " +lastfile);
+
+            // create folder Rule if needed
+            File ruleFolder = new File(Environment.getExternalStorageDirectory() + "/Download/CerenceRec/"+rule);
+            if(!ruleFolder.exists() || !ruleFolder.isDirectory()) {
+                try {
+                    Files.createDirectories(Paths.get(ruleFolder.getAbsolutePath()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            File from = new File(lastfile);
+            String newPath = Environment.getExternalStorageDirectory() + "/Download/CerenceRec/"+rule+"/"+files[files.length-1].getName();
+            newPath = newPath.replace("testRecord_", "").replace(".wav", "_"+score+".wav");
+            File to = new File(newPath);
+
+            Log.d("Files", "Moving from: " +lastfile + " to " + newPath);
+            from.renameTo(to);
+        }
+
+
+        //move/rename to /recordings/<intent>/date_score.wav
+        //if failed create emptu file
+
+    }
 }
